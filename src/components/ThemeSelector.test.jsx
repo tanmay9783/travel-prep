@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import ThemeSelector from './ThemeSelector';
-import React from 'react';
 
 describe('ThemeSelector', () => {
   it('renders correctly with current theme', () => {
