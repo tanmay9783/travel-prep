@@ -25,6 +25,7 @@ A powerful, local-first multi-trip packing planner to help you organize all your
 - **Local Storage**: Your list is automatically saved in the browser and persists across reloads.
 - **Offline PWA Support**: Application is fully functional when the device is offline, thanks to Service Worker caching and local-first architecture.
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices.
+- **Theme Support**: Choose between Light, Dark, or System themes with persistent preferences.
 
 ## Development
 

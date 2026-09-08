@@ -34,14 +34,15 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
   if (isEditing) {
     return (
       <li>
-        <form onSubmit={handleSave} style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
+        <form onSubmit={handleSave} className="flex gap-sm items-center flex-wrap" style={{ width: "100%" }}>
           <input
             type="number"
             min="1"
             step="1"
             value={editQty}
             onChange={(e) => setEditQty(e.target.value)}
-            style={{ width: "60px", padding: "0.4rem" }}
+            className="input"
+            style={{ width: "70px", padding: "0.4rem 0.8rem", fontSize: "1.4rem" }}
             aria-label="Edit quantity"
           />
           <input
@@ -49,22 +50,25 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
             ref={inputRef}
             value={editDesc}
             onChange={(e) => setEditDesc(e.target.value)}
-            style={{ padding: "0.4rem" }}
+            className="input"
+            style={{ padding: "0.4rem 0.8rem", fontSize: "1.4rem", flex: 1 }}
             aria-label="Edit description"
           />
           <select 
             aria-label="Edit category" 
             value={editCat} 
             onChange={(e) => setEditCat(e.target.value)}
-            style={{ padding: "0.4rem" }}
+            className="select"
+            style={{ padding: "0.4rem 0.8rem", fontSize: "1.4rem", width: "auto" }}
           >
             {Object.entries(CATEGORIES).map(([key, value]) => (
               <option key={key} value={key}>{value}</option>
             ))}
           </select>
-          <button type="submit" aria-label="Save item">💾</button>
+          <button type="submit" className="btn-icon" aria-label="Save item">💾</button>
           <button
             type="button"
+            className="btn-icon"
             onClick={() => {
               setIsEditing(false);
               setEditDesc(item.description);
@@ -76,7 +80,7 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
           >
             ❌
           </button>
-          {error && <span style={{color: "#ffc107", fontSize: "1.4rem", width: "100%"}}>{error}</span>}
+          {error && <span className="w-full text-warning" style={{ fontSize: "1.4rem", fontWeight: "bold", color: "var(--text-warning)" }}>{error}</span>}
         </form>
       </li>
     );
@@ -107,7 +111,8 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
           // ignore invalid payload
         }
       }}
-      style={{ cursor: isReorderEnabled ? "grab" : "default" }}
+        style={{ cursor: isReorderEnabled ? "grab" : "default" }}
+      className={item.packed ? "packed" : ""}
     >
       {isReorderEnabled && (
         <span style={{ marginRight: "0.5rem", cursor: "grab", opacity: 0.5 }} aria-hidden="true">
@@ -128,19 +133,21 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
         <>
           <button
             type="button"
+            className="btn-icon"
             aria-label={`Move ${item.description} up`}
             onClick={onMoveUp}
             disabled={!onMoveUp}
-            style={{ padding: "0.2rem 0.6rem", fontSize: "1.2rem", opacity: onMoveUp ? 1 : 0.3 }}
+            style={{ opacity: onMoveUp ? 1 : 0.3 }}
           >
             ↑
           </button>
           <button
             type="button"
+            className="btn-icon"
             aria-label={`Move ${item.description} down`}
             onClick={onMoveDown}
             disabled={!onMoveDown}
-            style={{ padding: "0.2rem 0.6rem", fontSize: "1.2rem", opacity: onMoveDown ? 1 : 0.3 }}
+            style={{ opacity: onMoveDown ? 1 : 0.3 }}
           >
             ↓
           </button>
@@ -150,6 +157,7 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
       <button
         aria-label={`Edit ${item.description}`}
         type="button"
+        className="btn-icon"
         onClick={() => setIsEditing(true)}
       >
         ✏️
@@ -157,6 +165,7 @@ export default function Item({ item, onDeleteItem, onToggleItem, onEditItem, isR
       <button
         aria-label={`Delete ${item.description}`}
         type="button"
+        className="btn-icon"
         onClick={() => onDeleteItem(item.id)}
       >
         ❌

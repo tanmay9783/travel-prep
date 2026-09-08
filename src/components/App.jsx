@@ -5,9 +5,12 @@ import { migrateLegacyData } from "../utils/migration";
 import TripsDashboard from "./TripsDashboard";
 import TripView from "./TripView";
 import TripForm from "./TripForm";
+import Header from "./Header";
 import { TEMPLATES } from "../data/templates";
+import { useTheme } from "../hooks/useTheme";
 
 export default function App() {
+  const [theme, setTheme] = useTheme();
   const [data, setData] = useLocalStorage("travel-prep-data", {
     trips: [],
   });
@@ -165,12 +168,14 @@ export default function App() {
   }
 
   return (
-    <>
-      <div aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", border: 0 }}>
-        {statusMessage}
-      </div>
-      
-      <Routes>
+    <div className="app">
+      <Header theme={theme} setTheme={setTheme} />
+      <main>
+        <div aria-live="polite" className="sr-only" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", border: 0 }}>
+          {statusMessage}
+        </div>
+        
+        <Routes>
         <Route path="/" element={
           <TripsDashboard
             trips={trips}
@@ -205,14 +210,15 @@ export default function App() {
           <EditTripRoute trips={trips} navigate={navigate} handleEditTrip={handleEditTrip} />
         } />
         <Route path="*" element={
-          <div style={{ textAlign: "center", padding: "4rem", backgroundColor: "#ffebb3", borderRadius: "8px", maxWidth: "600px", margin: "4rem auto" }}>
-            <h2 style={{ fontSize: "2.4rem", color: "#5a3e2b", marginBottom: "1rem" }}>Page not found</h2>
-            <p style={{ fontSize: "1.4rem", color: "#5a3e2b", marginBottom: "2rem" }}>The page you&apos;re looking for doesn&apos;t exist.</p>
-            <Link to="/" style={{ backgroundColor: "#76c7ad", color: "white", padding: "1rem 2rem", textDecoration: "none", borderRadius: "4px", fontSize: "1.6rem" }}>Back to Trips</Link>
+          <div className="card text-center" style={{ maxWidth: "600px", margin: "4rem auto" }}>
+            <h2 className="section-title text-danger" style={{ marginBottom: "1rem" }}>Page not found</h2>
+            <p className="text-muted" style={{ marginBottom: "2rem" }}>The page you&apos;re looking for doesn&apos;t exist.</p>
+            <Link to="/" className="btn btn-primary">Back to Trips</Link>
           </div>
         } />
-      </Routes>
-    </>
+        </Routes>
+      </main>
+    </div>
   );
 }
 
@@ -222,10 +228,10 @@ function TripViewRoute({ trips, navigate, handleAddItems, handleDeleteItem, hand
   const trip = trips.find(t => t.id === tripId);
   if (!trip) {
     return (
-      <div style={{ textAlign: "center", padding: "4rem", backgroundColor: "#ffebb3", borderRadius: "8px", maxWidth: "600px", margin: "4rem auto" }}>
-        <h2 style={{ fontSize: "2.4rem", color: "#dc3545", marginBottom: "1rem" }}>Trip not found</h2>
-        <p style={{ fontSize: "1.4rem", color: "#5a3e2b", marginBottom: "2rem" }}>This trip may have been deleted or the link may be invalid.</p>
-        <Link to="/" style={{ backgroundColor: "#76c7ad", color: "white", padding: "1rem 2rem", textDecoration: "none", borderRadius: "4px", fontSize: "1.6rem" }}>Back to Trips</Link>
+      <div className="card text-center" style={{ maxWidth: "600px", margin: "var(--spacing-2xl) auto" }}>
+        <h2 className="section-title text-danger" style={{ marginBottom: "var(--spacing-sm)", color: "var(--color-danger)" }}>Trip not found</h2>
+        <p className="text-muted" style={{ marginBottom: "var(--spacing-lg)" }}>This trip may have been deleted or the link may be invalid.</p>
+        <Link to="/" className="btn btn-secondary">Back to Trips</Link>
       </div>
     );
   }
@@ -249,15 +255,15 @@ function EditTripRoute({ trips, navigate, handleEditTrip }) {
   const trip = trips.find(t => t.id === tripId);
   if (!trip) {
     return (
-      <div style={{ textAlign: "center", padding: "4rem", backgroundColor: "#ffebb3", borderRadius: "8px", maxWidth: "600px", margin: "4rem auto" }}>
-        <h2 style={{ fontSize: "2.4rem", color: "#dc3545", marginBottom: "1rem" }}>Trip not found</h2>
-        <Link to="/" style={{ backgroundColor: "#76c7ad", color: "white", padding: "1rem 2rem", textDecoration: "none", borderRadius: "4px", fontSize: "1.6rem" }}>Back to Trips</Link>
+      <div className="card text-center" style={{ maxWidth: "600px", margin: "var(--spacing-2xl) auto" }}>
+        <h2 className="section-title text-danger" style={{ marginBottom: "var(--spacing-sm)", color: "var(--color-danger)" }}>Trip not found</h2>
+        <Link to="/" className="btn btn-secondary">Back to Trips</Link>
       </div>
     );
   }
   return (
-    <div style={{ padding: "4rem 2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <Link to={`/trips/${tripId}`} style={{ color: "#5a3e2b", fontSize: "1.6rem", textDecoration: "none", marginBottom: "2rem", display: "inline-block" }}>
+    <div className="container-sm" style={{ padding: "var(--spacing-2xl) var(--spacing-md)", margin: "0 auto" }}>
+      <Link to={`/trips/${tripId}`} style={{ color: "var(--text-primary)", fontSize: "var(--font-size-base)", textDecoration: "none", marginBottom: "var(--spacing-lg)", display: "inline-block" }}>
         ← Back to Trip
       </Link>
       <TripForm initialData={trip} onSubmit={(data) => handleEditTrip({ ...trip, ...data })} onCancel={() => navigate(`/trips/${tripId}`)} />

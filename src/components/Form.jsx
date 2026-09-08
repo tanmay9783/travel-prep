@@ -36,8 +36,8 @@ export default function Form({ onAddItems }) {
     setQuantity(1);
   }
   return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you need for your 😍 trip?</h3>
+    <form className="add-form flex flex-wrap justify-center items-center gap-sm" onSubmit={handleSubmit} style={{ backgroundColor: "var(--color-primary)", padding: "var(--spacing-lg) 0" }}>
+      <h3 className="section-title text-center" style={{ margin: "0 var(--spacing-md) 0 0", color: "var(--bg-page)" }}>What do you need for your 😍 trip?</h3>
       <input
         type="number"
         aria-label="Item quantity"
@@ -45,6 +45,7 @@ export default function Form({ onAddItems }) {
         min="1"
         step="1"
         onChange={(e) => setQuantity(e.target.value)}
+        className="input"
         style={{ width: "80px" }}
       />
       <input
@@ -52,19 +53,23 @@ export default function Form({ onAddItems }) {
         aria-label="Item description"
         placeholder="Item..."
         value={description}
+        className="input"
+        style={{ width: "auto" }}
         onChange={(e) => setDescription(e.target.value)}
       />
       <select 
         aria-label="Item category" 
         value={category} 
         onChange={(e) => setCategory(e.target.value)}
+        className="select"
+        style={{ width: "auto" }}
       >
         {Object.entries(CATEGORIES).map(([key, value]) => (
           <option key={key} value={key}>{value}</option>
         ))}
       </select>
-      <button type="submit">Add</button>
-      {error && <div style={{width: "100%", color: "#ffebee", marginTop: "10px", fontSize: "1.4rem", fontWeight: "bold"}}>{error}</div>}
+      <button type="submit" className="btn btn-secondary">Add</button>
+      {error && <div className="text-center w-full" style={{ color: "var(--bg-page)", marginTop: "10px", fontSize: "1.4rem", fontWeight: "bold" }}>{error}</div>}
     </form>
   );
 }

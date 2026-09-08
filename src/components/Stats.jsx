@@ -3,8 +3,8 @@ export default function Stats({ items }) {
     return (
       <footer className="stats">
         <em>Start adding some items to your packing list 🚀</em>
-        <div style={{ marginTop: "1rem" }}>
-          <progress value="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style={{ width: "50%", maxWidth: "400px", height: "2rem" }} />
+        <div className="w-full flex justify-center mt-sm">
+          <progress value="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style={{ width: "50%", maxWidth: "400px", height: "2rem", accentColor: "var(--color-primary)" }} />
         </div>
       </footer>
     );
@@ -21,14 +21,14 @@ export default function Stats({ items }) {
           ? "You got everything! Ready to go ✈️"
           : `💼 ${numItems} items, ${numPackeds} packed, ${remainingCount} remaining, ${percentage}% complete`}
       </em>
-      <div style={{ marginTop: "1rem" }}>
+      <div className="w-full flex justify-center mt-sm">
         <progress 
           value={numPackeds} 
           max={numItems}
           aria-valuenow={percentage}
           aria-valuemin="0"
           aria-valuemax="100"
-          style={{ width: "50%", maxWidth: "400px", height: "2rem" }}
+          style={{ width: "50%", maxWidth: "400px", height: "2rem", accentColor: "var(--color-primary)" }}
         />
       </div>
     </footer>

@@ -65,14 +65,14 @@ export default function TripsDashboard({ trips, onDeleteTrip, onImportReplace, o
   }
 
   return (
-    <div style={{ padding: "4rem 2rem", maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem", flexWrap: "wrap", gap: "2rem" }}>
-        <h2 style={{ fontSize: "3rem", color: "#5a3e2b" }}>My Trips</h2>
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <button onClick={handleExport} style={{ backgroundColor: "#5a3e2b", color: "white" }}>
+    <div className="container">
+      <div className="flex justify-between items-center flex-wrap gap-md" style={{ marginBottom: "var(--spacing-xl)" }}>
+        <h2 className="page-title" style={{ margin: 0 }}>My Trips</h2>
+        <div className="flex flex-wrap gap-sm">
+          <button onClick={handleExport} className="btn btn-outline">
             Export Backup
           </button>
-          <button onClick={() => fileInputRef.current?.click()} style={{ backgroundColor: "#5a3e2b", color: "white" }}>
+          <button onClick={() => fileInputRef.current?.click()} className="btn btn-outline">
             Import Backup
           </button>
           <input 
@@ -80,37 +80,37 @@ export default function TripsDashboard({ trips, onDeleteTrip, onImportReplace, o
             accept=".json" 
             ref={fileInputRef} 
             onChange={handleImportFile} 
-            style={{ display: "none" }} 
+            className="sr-only" 
             aria-label="Choose a Travel Prep JSON backup"
           />
-          <Link to="/trips/new" style={{ backgroundColor: "#e5771f", color: "white", padding: "1.2rem 2.4rem", borderRadius: "10rem", textDecoration: "none", fontSize: "1.6rem", fontWeight: 700, display: "inline-block" }}>
+          <Link to="/trips/new" className="btn btn-primary">
             + Create Trip
           </Link>
         </div>
       </div>
 
       {pendingImport && (
-        <div style={{ backgroundColor: "#fff3cd", padding: "2rem", borderRadius: "8px", marginBottom: "3rem", border: "1px solid #ffeeba" }}>
-          <h3 style={{ fontSize: "2rem", color: "#856404", marginBottom: "1rem" }}>Import {pendingImport.length} trip(s)?</h3>
-          <p style={{ fontSize: "1.4rem", color: "#856404", marginBottom: "2rem" }}>Choose how you would like to import this backup.</p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <button onClick={confirmReplace} style={{ backgroundColor: "#dc3545", color: "white" }}>Replace Existing Trips</button>
-            <button onClick={confirmAdd} style={{ backgroundColor: "#28a745", color: "white" }}>Add to Existing Trips</button>
-            <button onClick={cancelImport} style={{ backgroundColor: "#6c757d", color: "white" }}>Cancel</button>
+        <div className="card card-warning" style={{ marginBottom: "var(--spacing-xl)" }}>
+          <h3 className="section-title" style={{ margin: 0, marginBottom: "var(--spacing-sm)" }}>Import {pendingImport.length} trip(s)?</h3>
+          <p className="card-text text-muted" style={{ marginBottom: "var(--spacing-lg)" }}>Choose how you would like to import this backup.</p>
+          <div className="flex flex-wrap gap-sm">
+            <button onClick={confirmReplace} className="btn btn-destructive">Replace Existing Trips</button>
+            <button onClick={confirmAdd} className="btn btn-primary">Add to Existing Trips</button>
+            <button onClick={cancelImport} className="btn btn-outline">Cancel</button>
           </div>
         </div>
       )}
 
       {trips.length === 0 ? (
-        <div style={{ textAlign: "center", backgroundColor: "#ffebb3", padding: "4rem", borderRadius: "8px", marginTop: "2rem" }}>
-          <p style={{ fontSize: "2rem", color: "#5a3e2b", marginBottom: "2rem" }}>No trips yet.</p>
-          <p style={{ fontSize: "1.6rem", color: "#5a3e2b", marginBottom: "2rem" }}>Create your first trip to start packing.</p>
-          <Link to="/trips/new" style={{ backgroundColor: "#76c7ad", color: "white", padding: "1.2rem 2.4rem", borderRadius: "4px", textDecoration: "none", fontSize: "1.6rem", display: "inline-block" }}>
+        <div className="card text-center" style={{ marginTop: "var(--spacing-lg)" }}>
+          <p className="section-title">No trips yet.</p>
+          <p className="text-muted" style={{ marginBottom: "var(--spacing-lg)" }}>Create your first trip to start packing.</p>
+          <Link to="/trips/new" className="btn btn-secondary">
             Create Trip
           </Link>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "2rem" }}>
+        <div className="grid-cards">
           {trips.map(trip => (
             <TripCard 
               key={trip.id} 

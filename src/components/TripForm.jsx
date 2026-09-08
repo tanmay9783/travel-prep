@@ -34,16 +34,17 @@ export default function TripForm({ onSubmit, onCancel, initialData }) {
   }
 
   return (
-    <form className="add-form" onSubmit={handleSubmit} style={{ flexDirection: "column", alignItems: "stretch", maxWidth: "500px", margin: "2rem auto", backgroundColor: "#f4a226", padding: "2rem", borderRadius: "8px" }}>
-      <h3 style={{ margin: "0 0 1rem 0", color: "#5a3e2b" }}>{isEdit ? "Edit Trip" : "Create New Trip"}</h3>
+    <form className="card flex flex-col" onSubmit={handleSubmit} style={{ maxWidth: "500px", margin: "var(--spacing-xl) auto" }}>
+      <h3 className="section-title" style={{ margin: "0 0 var(--spacing-md) 0" }}>{isEdit ? "Edit Trip" : "Create New Trip"}</h3>
       
-      {error && <div style={{ color: "#d32f2f", marginBottom: "1rem", fontWeight: "bold" }}>{error}</div>}
+      {error && <div style={{ color: "var(--color-danger)", marginBottom: "var(--spacing-md)", fontWeight: "bold" }}>{error}</div>}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <div className="flex flex-col gap-md">
         <input
           type="text"
           placeholder="Trip Name *"
           aria-label="Trip Name"
+          className="input"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -51,13 +52,15 @@ export default function TripForm({ onSubmit, onCancel, initialData }) {
           type="text"
           placeholder="Destination (Optional)"
           aria-label="Destination"
+          className="input"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
         />
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className="flex gap-sm">
           <input
             type="date"
             aria-label="Start Date"
+            className="input"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             style={{ flex: 1 }}
@@ -65,6 +68,7 @@ export default function TripForm({ onSubmit, onCancel, initialData }) {
           <input
             type="date"
             aria-label="End Date"
+            className="input"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             style={{ flex: 1 }}
@@ -74,6 +78,7 @@ export default function TripForm({ onSubmit, onCancel, initialData }) {
         {!isEdit && (
           <select 
             aria-label="Trip Template" 
+            className="select"
             value={templateId} 
             onChange={(e) => setTemplateId(e.target.value)}
           >
@@ -85,9 +90,9 @@ export default function TripForm({ onSubmit, onCancel, initialData }) {
           </select>
         )}
 
-        <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-          <button type="submit" style={{ flex: 1 }}>{isEdit ? "Save Changes" : "Create Trip"}</button>
-          <button type="button" onClick={onCancel} style={{ flex: 1, backgroundColor: "#ffebb3", color: "#5a3e2b" }}>Cancel</button>
+        <div className="flex gap-sm mt-sm">
+          <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>{isEdit ? "Save Changes" : "Create Trip"}</button>
+          <button type="button" onClick={onCancel} className="btn btn-outline" style={{ flex: 1 }}>Cancel</button>
         </div>
       </div>
     </form>

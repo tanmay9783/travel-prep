@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Logo from "./Logo";
 import Form from "./Form";
 import PackingList from "./PackingList";
 import Stats from "./Stats";
@@ -20,23 +19,23 @@ export default function TripView({
   const percentage = numItems > 0 ? Math.round((numPacked / numItems) * 100) : 0;
 
   return (
-    <div className="app">
-      <div style={{ padding: "1rem", backgroundColor: "#e5771f", display: "flex", alignItems: "center", gap: "1rem" }}>
-        <button onClick={onBack} style={{ backgroundColor: "transparent", border: "none", color: "#5a3e2b", cursor: "pointer", fontSize: "1.6rem" }}>
+    <div>
+      <div className="flex items-center gap-md" style={{ padding: "var(--spacing-md)", backgroundColor: "var(--bg-surface-header)", boxShadow: "var(--shadow-sm)" }}>
+        <button onClick={onBack} className="btn-icon" style={{ fontSize: "var(--font-size-md)", fontWeight: "bold" }}>
           ← Back to Trips
         </button>
-        <h2 style={{ flex: 1, textAlign: "center", color: "#5a3e2b", margin: 0, fontSize: "2rem" }}>
-          {trip.name} {trip.destination && `(${trip.destination})`}
+        <h2 className="section-title text-center" style={{ flex: 1, margin: 0, color: "var(--text-header)" }}>
+          {trip.name} {trip.destination && <span className="text-muted" style={{ fontSize: "var(--font-size-base)" }}>({trip.destination})</span>}
         </h2>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <span style={{ color: "#5a3e2b", fontSize: "1.4rem", fontWeight: "bold" }}>{percentage}% packed</span>
-          <Link to={`/trips/${trip.id}/edit`} style={{ backgroundColor: "#5a3e2b", color: "white", padding: "0.5rem 1rem", borderRadius: "4px", textDecoration: "none", fontSize: "1.4rem" }}>
+        <div className="flex items-center gap-sm">
+          <span style={{ fontSize: "var(--font-size-sm)", fontWeight: "bold", color: "var(--text-header)" }}>{percentage}% packed</span>
+          <Link to={`/trips/${trip.id}/edit`} className="btn btn-primary btn-sm">
             Edit
           </Link>
         </div>
       </div>
       
-      <Logo />
+
       
       <Form onAddItems={(item) => onAddItems(trip.id, item)} />
       
